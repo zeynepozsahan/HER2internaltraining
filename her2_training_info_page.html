@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HER2 Scoring — peakAcademy Background Guide</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── matches ComPath Academy dark top bar */
+    header {
+      background: #0d1117;
+      padding: 0 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #1e2530;
+    }
+
+    .logo-mark {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text .brand {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-text .sub {
+      font-size: 11px;
+      color: #7dd3c8;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-right span {
+      font-size: 12px;
+      color: #8b9ab0;
+    }
+
+    .nav-badge {
+      background: #1e2d3d;
+      border: 1px solid #2e4057;
+      color: #7dd3c8;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+      letter-spacing: 0.4px;
+    }
+
+    /* ── HERO BANNER ── lighter version of ComPath's info bar */
+    .hero {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 32px 40px 28px;
+      text-align: center;
+    }
+
+    .hero .course-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #5b21b6;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #0d1117;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: #64748b;
+      max-width: 520px;
+      margin: 0 auto 18px;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1.5px solid;
+    }
+
+    .pill-purple { background: #f5f3ff; color: #6d28d9; border-color: #c4b5fd; }
+    .pill-teal   { background: #f0fdfa; color: #0f766e; border-color: #99f6e4; }
+    .pill-gray   { background: #f8fafc; color: #475569; border-color: #cbd5e1; }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    /* ── SECTION CARDS ── white, rounded, like ComPath course tiles */
+    .section {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .section h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #5b21b6;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .section h2 .icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: #f5f3ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .section p, .section li {
+      color: #374151;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .section ul { padding-left: 18px; }
+
+    /* ── SCORE CARDS ── */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .score-card {
+      border-radius: 8px;
+      padding: 16px 14px;
+      border: 1.5px solid transparent;
+    }
+
+    .score-card .score-label {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .score-card .score-class {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 7px;
+    }
+
+    .score-card p { font-size: 12px; margin: 0; line-height: 1.45; }
+
+    .s0-null  { background: #f8fafc; border-color: #cbd5e1; color: #334155; }
+    .s0-null .score-label { color: #475569; }
+    .s0-null .score-class { color: #64748b; }
+
+    .s0-ultra { background: #f5f3ff; border-color: #c4b5fd; color: #4c1d95; }
+    .s0-ultra .score-label { color: #6d28d9; }
+    .s0-ultra .score-class { color: #7c3aed; }
+
+    .s1       { background: #f0fdfa; border-color: #99f6e4; color: #134e4a; }
+    .s1 .score-label { color: #0f766e; }
+    .s1 .score-class { color: #0f766e; }
+
+    .s2       { background: #fffbeb; border-color: #fde68a; color: #78350f; }
+    .s2 .score-label { color: #d97706; }
+    .s2 .score-class { color: #b45309; }
+
+    .s3       { background: #fff1f2; border-color: #fecdd3; color: #7f1d1d; }
+    .s3 .score-label { color: #dc2626; }
+    .s3 .score-class { color: #b91c1c; }
+
+    /* ── TABLE ── */
+    .class-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 14px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+    }
+
+    .class-table th {
+      background: #f5f3ff;
+      color: #5b21b6;
+      font-weight: 700;
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .class-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: middle;
+    }
+
+    .class-table tr:last-child td { border-bottom: none; }
+    .class-table tr:nth-child(even) td { background: #fafbfc; }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .tag-null     { background: #f1f5f9; color: #475569; }
+    .tag-ultra    { background: #f5f3ff; color: #6d28d9; }
+    .tag-low      { background: #f0fdfa; color: #0f766e; }
+    .tag-positive { background: #fff1f2; color: #b91c1c; }
+
+    /* ── INFO BOX ── */
+    .info-box {
+      background: #f5f3ff;
+      border-left: 3px solid #7c3aed;
+      border-radius: 0 7px 7px 0;
+      padding: 14px 18px;
+      margin-top: 14px;
+    }
+
+    .info-box strong {
+      color: #5b21b6;
+      display: block;
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+
+    .info-box p { color: #374151; font-size: 13px; margin: 0; }
+
+    /* ── TIPS ── */
+    .tip-list { list-style: none; padding: 0; margin-top: 14px; }
+
+    .tip-list li {
+      padding: 12px 14px;
+      border-radius: 7px;
+      background: #fafbfc;
+      border: 1px solid #e9edf2;
+      margin-bottom: 8px;
+      font-size: 13px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .tip-list li .tip-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── RESOURCES ── */
+    .resource-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 7px;
+      border: 1px solid #e2e8f0;
+      text-decoration: none;
+      color: #1e1b4b;
+      margin-bottom: 8px;
+      transition: background 0.15s, border-color 0.15s;
+      font-size: 13px;
+    }
+
+    .resource-link:hover {
+      background: #f5f3ff;
+      border-color: #c4b5fd;
+    }
+
+    .resource-link .r-icon { font-size: 18px; flex-shrink: 0; }
+    .resource-link .r-title { font-weight: 600; color: #1e1b4b; }
+    .resource-link .r-sub { color: #6b7280; font-size: 11px; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: #94a3b8;
+      font-size: 11px;
+      border-top: 1px solid #e2e8f0;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ComPath Academy nav bar -->
+<header>
+  <svg class="logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="20" cy="20" r="19" stroke="#3ecfb2" stroke-width="1.5"/>
+    <circle cx="20" cy="20" r="13" stroke="#3ecfb2" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="20" cy="20" r="7"  stroke="#3ecfb2" stroke-width="1.5" opacity="0.35"/>
+    <circle cx="20" cy="20" r="4"  fill="#7c3aed"/>
+  </svg>
+  <div class="logo-text">
+    <span class="brand">mindpeak</span>
+    <span class="sub">ComPath Academy</span>
+  </div>
+  <div class="nav-right">
+    <span>Internal Training</span>
+    <span class="nav-badge">HER2 · 2026</span>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="course-label">peakAcademy · Background Guide</div>
+  <h1>Breast HER2 IHC Scoring</h1>
+  <p>Read this before you score — no prior pathology experience required.</p>
+  <div class="pill-row">
+    <span class="pill pill-purple">Self-study</span>
+    <span class="pill pill-teal">~15 min read</span>
+    <span class="pill pill-gray">25-case quiz</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- What is HER2 -->
+  <div class="section">
+    <h2><span class="icon">🧬</span> What is HER2?</h2>
+    <p>HER2 (Human Epidermal growth factor Receptor 2) is a protein found on the surface of cells that promotes cell growth. In some breast cancers, the HER2 gene is amplified, causing the cell to overproduce the HER2 protein — making the tumor more aggressive.</p>
+    <p>HER2 status is one of the most important biomarkers in breast oncology because it directly determines treatment eligibility. Drugs like trastuzumab (Herceptin) and trastuzumab deruxtecan (T-DXd / Enhertu) target HER2-expressing tumors. Getting the score right means more patients receive the right treatment.</p>
+    <p>HER2 is measured using <strong>Immunohistochemistry (IHC)</strong> — a staining technique that makes HER2 protein visible under a microscope as brown membrane staining on tumor cells.</p>
+  </div>
+
+  <!-- IHC Scoring -->
+  <div class="section">
+    <h2><span class="icon">🔬</span> HER2 IHC Scoring: The Four Scores</h2>
+    <p>Pathologists assign one of four IHC scores based on the intensity and completeness of membrane staining in invasive tumor cells.</p>
+
+    <div class="score-grid">
+      <div class="score-card s0-null">
+        <div class="score-label">0 (null)</div>
+        <div class="score-class">HER2 Null</div>
+        <p>No staining, or faint/barely perceptible incomplete membrane staining in ≤10% of tumor cells. Completely negative.</p>
+      </div>
+      <div class="score-card s0-ultra">
+        <div class="score-label">0+ (ultralow)</div>
+        <div class="score-class">HER2 Ultralow</div>
+        <p>Faint/barely perceptible incomplete membrane staining in >10% of tumor cells. A new, clinically important category.</p>
+      </div>
+      <div class="score-card s1">
+        <div class="score-label">1+</div>
+        <div class="score-class">HER2 Low</div>
+        <p>Faint/barely perceptible <em>complete</em> membrane staining in >10% of tumor cells. Weak but present.</p>
+      </div>
+      <div class="score-card s2">
+        <div class="score-label">2+</div>
+        <div class="score-class">HER2 Low or Positive</div>
+        <p>Weak to moderate complete membrane staining in >10% of cells. Equivocal — requires ISH testing to confirm gene amplification.</p>
+      </div>
+      <div class="score-card s3">
+        <div class="score-label">3+</div>
+        <div class="score-class">HER2 Positive</div>
+        <p>Strong, complete membrane staining in >10% of tumor cells. Clearly positive.</p>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top: 18px;">
+      <strong>💡 Key distinction: Complete vs. incomplete staining</strong>
+      <p>Complete staining means the entire cell membrane is outlined (like a ring). Incomplete means only part of the membrane stains. This distinction separates 0 from 1+ and is one of the hardest calls in HER2 scoring — and where AI assistance is most valuable.</p>
+    </div>
+  </div>
+
+  <!-- HER2 Classification -->
+  <div class="section">
+    <h2><span class="icon">📊</span> HER2 Classifications</h2>
+    <p>IHC scores map to clinical classifications that guide treatment decisions:</p>
+
+    <table class="class-table">
+      <thead>
+        <tr>
+          <th>IHC Score</th>
+          <th>Classification</th>
+          <th>ISH Required?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>0 (no membrane staining)</strong></td>
+          <td><span class="tag tag-null">HER2 Null</span></td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td><strong>0 (with membrane staining &gt;10%)</strong></td>
+          <td><span class="tag tag-ultra">HER2 Ultralow</span></td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td><strong>1+</strong></td>
+          <td><span class="tag tag-low">HER2 Low</span></td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td><strong>2+ / ISH negative</strong></td>
+          <td><span class="tag tag-low">HER2 Low</span></td>
+          <td>Yes — to confirm</td>
+        </tr>
+        <tr>
+          <td><strong>2+ / ISH positive</strong></td>
+          <td><span class="tag tag-positive">HER2 Positive</span></td>
+          <td>Yes — confirms</td>
+        </tr>
+        <tr>
+          <td><strong>3+</strong></td>
+          <td><span class="tag tag-positive">HER2 Positive</span></td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ISH -->
+  <div class="section">
+    <h2><span class="icon">🧪</span> What is ISH?</h2>
+    <p>ISH (In Situ Hybridization) — often called FISH or CISH — is a molecular test that directly measures HER2 gene copy number. It is used as a reflex test when IHC gives an equivocal 2+ result.</p>
+    <ul>
+      <li><strong>ISH positive:</strong> HER2 gene is amplified → HER2 Positive</li>
+      <li><strong>ISH negative:</strong> HER2 gene is not amplified → HER2 Low (if IHC was 2+)</li>
+    </ul>
+    <div class="info-box">
+      <strong>In the quiz</strong>
+      <p>Some cases will ask you to determine ISH status in addition to the IHC score. You'll see both the staining image and AI overlays to help. ISH questions will only appear for 2+ cases.</p>
+    </div>
+  </div>
+
+  <!-- Scoring tips -->
+  <div class="section">
+    <h2><span class="icon">✅</span> Practical Scoring Tips</h2>
+
+    <ul class="tip-list">
+      <li>
+        <span class="tip-icon">🔍</span>
+        <div><strong>Focus on invasive tumor cells only.</strong> Do not score ductal carcinoma in situ (DCIS), normal breast tissue, or stroma. The AI highlights these regions — look for the outlined areas.</div>
+      </li>
+      <li>
+        <span class="tip-icon">🟤</span>
+        <div><strong>Brown = HER2 staining.</strong> The darker and more complete the brown ring around the cell membrane, the higher the score. Blue = nuclei (haematoxylin counterstain), not HER2.</div>
+      </li>
+      <li>
+        <span class="tip-icon">📐</span>
+        <div><strong>Complete vs. incomplete.</strong> Ask: is the membrane fully outlined (like a closed ring) or only partially? Complete + strong = 3+. Complete + weak = 1+. Incomplete + faint = 0+.</div>
+      </li>
+      <li>
+        <span class="tip-icon">📏</span>
+        <div><strong>Use the "10% rule".</strong> The score applies if >10% of invasive tumor cells show that pattern. A single strongly staining cell doesn't make it a 3+.</div>
+      </li>
+      <li>
+        <span class="tip-icon">🤖</span>
+        <div><strong>Use the AI overlay — but question it.</strong> The AI will show you its classification per region. For cases with poor AI results, you may find it's miscalling 0+ as null, or 1+ as 2+. Your job is to judge whether the AI is right.</div>
+      </li>
+      <li>
+        <span class="tip-icon">🖼️</span>
+        <div><strong>Patches ≠ diagnosis — context is everything.</strong> This is especially important for anyone involved in training algorithms. Algorithm training can make use of patches to inform decisions but in real pathology a full slide context is always needed to make an informed diagnostic decision for each patient. That decision can directly change the course of treatment — whether someone is HER2 null, ultralow, low, or 3+ determines what therapy they receive. Use the whole-slide context when to understand what you're looking at: what is invasive tumor vs. normal tissue, what is in situ tumor (DCIS), and how to distinguish HER2 null from ultralow — one of the hardest and most consequential calls in HER2 scoring.</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Important Context -->
+  <div class="section">
+    <h2><span class="icon">⚠️</span> Important Context</h2>
+    <p>The goal of this training is not to turn you into a pathologist — it's to give you enough fluency to understand how an IHC image is scored, how a diagnosis is made, and what our AI is doing for pathologists who are scoring these images or learning to score. You should also come away able to recognise common failure modes of the AI — be aware that even our AI can make mistakes — and communicate credibly with clinical partners about HER2 scoring.</p>
+  </div>
+
+  <!-- Resources -->
+  <div class="section">
+    <h2><span class="icon">📚</span> Recommended Self-Study Resources</h2>
+    <p style="margin-bottom: 14px;">Spend 15–30 minutes on any of these before taking the quiz:</p>
+
+    <a class="resource-link" href="https://www.youtube.com/results?search_query=HER2+IHC+scoring+breast+cancer" target="_blank">
+      <span class="r-icon">▶️</span>
+      <div>
+        <div class="r-title">YouTube: HER2 IHC scoring tutorials</div>
+        <div class="r-sub">Search "HER2 IHC scoring breast cancer" — multiple short educational videos available</div>
+      </div>
+    </a>
+
+    <a class="resource-link" href="https://www.cap.org/protocols-and-guidelines/cap-guidelines/current-cap-guidelines/recommendations-for-human-epidermal-growth-factor-2-testing-in-breast-cancer" target="_blank">
+      <span class="r-icon">📄</span>
+      <div>
+        <div class="r-title">CAP HER2 Testing Guidelines</div>
+        <div class="r-sub">College of American Pathologists — official scoring criteria and visual examples</div>
+      </div>
+    </a>
+
+  </div>
+
+</div>
+
+<footer>
+  peakAcademy Internal Training Series · Mindpeak GmbH · HER2 Module · Questions? Contact Zeynep
+</footer>
+
+</body>
+</html>
